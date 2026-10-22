@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Cumbia.bet · Protótipo MVP v11</title><meta name="robots" content="noindex,nofollow,noarchive"><meta name="googlebot" content="noindex,nofollow"><meta name="description" content="Protótipo de design (não é um site real). Nenhuma aposta, cadastro ou pagamento é feito."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E5007D'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E"></head><body>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Cumbia.bet · Protótipo MVP v14</title><meta name="robots" content="noindex,nofollow,noarchive"><meta name="googlebot" content="noindex,nofollow"><meta name="description" content="Protótipo de design (não é um site real). Nenhuma aposta, cadastro ou pagamento é feito."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E5007D'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E"></head><body>
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1931,7 +1931,9 @@ footer{padding-left:var(--gutter);padding-right:var(--gutter)}
 .tb-card .ft .de s{font-family:var(--inter);font-size:14px;font-weight:700;color:var(--n500)}
 .tb-card .oddbtn{width:112px;height:44px;font-size:14px}
 @media (min-width:600px){.tb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tb-hero{padding:20px 24px}.tb-hero h1{font-size:28px}}
-@media (min-width:1024px){.tb-grid{grid-template-columns:repeat(auto-fill,minmax(max(260px,calc((100% - 32px) / 3)),1fr));gap:16px}.tb-card .hd>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.tb-tools{flex-direction:row;align-items:center;justify-content:space-between}.tb-tools .tabs{width:280px;flex:none}}
+@media (min-width:1024px){.tb-grid{grid-template-columns:repeat(auto-fill,minmax(max(260px,calc((100% - 32px) / 3)),1fr));gap:16px}.tb-card .hd>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.tb-tools .tabs{width:280px;flex:none}}
+/* r6-q1: abaixo de 1280px as abas ficam em linha própria, abaixo dos filtros */
+@media (min-width:1280px){.tb-tools{flex-direction:row;align-items:center;justify-content:space-between}}
 
 /* ===== v10 · mod-comprovantes (Rodada 4, opção A) ===== */
 /* Comprovantes · núcleo comum */
@@ -2031,6 +2033,80 @@ footer{padding-left:var(--gutter);padding-right:var(--gutter)}
 .cs-rr .h,.cs-rr .a{color:var(--n400)}
 .cs-rr b{text-align:right;color:var(--n300)}
 .cs-rr b.up{color:var(--green)}
+
+
+/* ===== v13 · pedido direto: carrosséis navegáveis, cards no tamanho do celular, Top 10 180px, páginas de categoria ===== */
+/* Rodapé sem os divisores verticais */
+.links .vl{display:none}
+.links{gap:16px}
+
+/* Setas nas extremidades: posição por tipo de carrossel */
+@media (min-width:600px){
+  .hc-v.g13 .hc-a{top:94px}                 /* meio do card de jogo (188px) */
+  .c13p{position:relative}
+  .c13p>.hc-a{top:var(--c13t,50%)}            /* Top 10, provedoras e destaques do Esportes: meio do trilho */
+  .c13p.p13>.hc-a{width:36px;height:36px}
+  .c13p.p13>.hc-a .i{font-size:14px}
+  .hc-v.c13 .hc-a[disabled],.c13p>.hc-a[disabled]{opacity:0;pointer-events:none}
+}
+/* Arrastar com o mouse */
+@media (pointer:fine){
+  .rail,.hc-track,.pvm-track{cursor:grab}
+  .rail.c13-drag,.hc-track.c13-drag,.pvm-track.c13-drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+  .c13-drag a,.c13-drag button{pointer-events:none}
+  .rail img,.pvm-track i{-webkit-user-drag:none}
+}
+
+/* Computador: cards de jogo no tamanho do celular (141×188) e Top 10 com 180px */
+@media (min-width:1024px){
+  .rail .gitem{width:141px}
+  .rail .gitem .gcard{height:188px;aspect-ratio:auto}
+  #sgrid{grid-template-columns:repeat(auto-fill,141px);justify-content:space-between;gap:24px 16px}
+  #sgrid .gitem .gcard{aspect-ratio:auto;height:188px}
+  .top .tf{width:180px;height:240px}
+  .top .tf .gcard{inset:6px}
+  .top .tframe{left:-6.7px;top:-13.4px;width:193.4px;height:267.2px}
+  .tf .fav{top:22px;left:10px}
+}
+@media (min-width:1280px){
+  .rail .gitem{width:141px}
+}
+
+/* Página da categoria */
+.c13-back{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 12px 0 6px;border-radius:999px;background:var(--n900);outline:1px solid var(--n800);outline-offset:-1px;font-size:13px;font-weight:600;color:var(--n200);transition:outline-color .2s,color .2s}
+.c13-back:hover{outline-color:var(--r700);color:var(--n100)}
+.c13-back .i{font-size:16px}
+/* Provedoras: o esfumado vai no trilho, não na seção, para as setas não sumirem nas bordas */
+.pvm.c13p{-webkit-mask:none;mask:none}
+.pvm.c13p>.pvm-track{-webkit-mask:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+@media (min-width:1024px){.pvm.c13p>.pvm-track{-webkit-mask:linear-gradient(90deg,transparent,#000 48px,#000 calc(100% - 48px),transparent);mask:linear-gradient(90deg,transparent,#000 48px,#000 calc(100% - 48px),transparent)}}
+
+
+/* ===== v14 · pedido direto ===== */
+/* Suporte: no hover mantém o fundo escuro (antes herdava o hover translúcido dos itens do menu lateral) */
+.nav .sup:hover,.nav .sup:focus-visible{background:radial-gradient(circle at 50% 30%,#333,var(--n950) 75%)}
+.dep-fab{display:none}
+@media (min-width:1024px){
+  /* Depositar sai do menu lateral e vai para a barra do topo, como no celular */
+  .nav .mid{display:none}
+  .hdr-actions .btn-h32{display:inline-flex;height:40px;padding:0 20px;font-size:13px;border-radius:4px}
+  /* Ordem do menu lateral: Início, Menu, Esportes, Cassino, atalhos da conta */
+  .nav>[data-nav="inicio"]{order:1}
+  .nav>#menuBtn{order:2}
+  .nav>[data-nav="esportes"]{order:3}
+  .nav>[data-nav="slots"]{order:4}
+  .nav>.sb-acct{order:5}
+  .nav>.sup-wrap{order:6}
+  /* Botão flutuante de depósito, acima do Suporte */
+  .dep-fab{display:flex;position:fixed;right:24px;bottom:92px;z-index:46;width:56px;height:56px;border-radius:50%;align-items:center;justify-content:center;
+    background:var(--gloss),var(--pink-btn);box-shadow:var(--sh-pri),0 10px 26px rgba(0,0,0,.5);transition:transform .2s var(--spring),filter .2s}
+  .dep-fab .g3{font-size:28px}
+  .dep-fab:hover{filter:brightness(1.08);transform:translateY(-2px)}
+  .dep-fab:active{transform:scale(.92)}
+  .dep-fab .lb{position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);opacity:0;pointer-events:none;white-space:nowrap;padding:6px 12px;border-radius:999px;background:var(--n900);outline:1px solid var(--n800);font-size:13px;font-weight:700;color:var(--n100);box-shadow:0 8px 20px rgba(0,0,0,.5);transition:opacity .2s,transform .2s var(--ease)}
+  .dep-fab:hover .lb,.dep-fab:focus-visible .lb{opacity:1;transform:translate(0,-50%)}
+  .dep-fab[hidden]{display:none}
+}
 
 </style>
 
@@ -2230,9 +2306,10 @@ inicio:{label:'Início',cls:'home',render:()=>`
     <div class="filters-wrap">${chips(CATS,0,'home')}</div>
   </section>
   <section class="block">${stitle('Top 10',true,'trophy')}<div class="rail top-rail tl" id="topRail"><div class="tl-t">${[1,2].map(c=>TOP10.map((g,i)=>topItem(g,i,c)).join('')).join('')}</div></div></section>
-  <section class="block">${stitle('Categoria Comum',true,'dice')}<div class="rail" style="gap:16px">${[GAMES[1],GAMES[2],GAMES[4],GAMES[5],GAMES[0],GAMES[3],GAMES[1]].map((g,i)=>gitem('c'+i,g)).join('')}</div></section>
+  ${c13Row(C13[0])}
   ${h8Prov()}
   <section class="hc" aria-label="Torneios">${hcView('tourRail','tourn',TOURN.map(h8Tourn).join(''),'torneios')}</section>
+  ${C13.slice(1).map(c13Row).join('')}
   <section class="block hc" id="esportes">${stitle('Apostas Esportivas',true,'soccer').replace('data-toast="Abrindo “Apostas Esportivas”"','data-go="esportes"')}${hcView('hcSport','sport',H8_SPORTS.map(h8Sport).join(''),'esportes')}</section>
   <section class="boost"><div class="bh"><span class="sym">${ic('flame')}</span><h2>Apostas Aumentadas</h2><button class="tb-all" data-go="turbinadas">Ver todas</button><button class="nav-a prev" data-scroll="boostRail" data-dir="-1" aria-label="Aposta anterior" disabled>${ic('arrow')}</button><button class="nav-a next" data-scroll="boostRail" data-dir="1" aria-label="Próxima aposta">${ic('arrow')}</button></div>
     <div class="bview"><div class="rail" id="boostRail" data-carousel>${BOOSTS.map((b,i)=>`
@@ -3568,7 +3645,7 @@ function rspPerPage(){return rspCols()*(RSP_MQ.tab.matches?4:5)}
 /* Destaques 2 e 3: arte existente + título e botão em HTML (mesmo componente; trocar a arte não muda o layout) */
 const BN=[
   {k:'cas',img:'hero',kick:['dice','CASSINO ONLINE'],h:'Slots, crash e muito mais',p:'Centenas de jogos dos melhores provedores',b:'JOGAR AGORA',act:'data-go="slots"'},
-  {k:'esp',img:'match',kick:['soccer','APOSTAS ESPORTIVAS'],h:'Flamengo × Palmeiras',p:'Mais de 140 mercados · hoje, 16:00',b:'APOSTAR AGORA',act:'data-esp-ev="fla"'}];
+  {k:'esp',img:'match',kick:['soccer','APOSTAS ESPORTIVAS'],h:'Flamengo × Palmeiras',p:'Ao vivo agora · mais de 140 mercados',b:'APOSTAR AGORA',act:'data-esp-ev="fla"'}];
 function rspBanners(){
   const n=1+BN.length;
   return `<div class="rsp-bn" aria-roledescription="carrossel" aria-label="Destaques">
@@ -4349,14 +4426,146 @@ function csSsSheet(i){const s=CS_SS[i],g=csG(s),r=s.gn-s.ap,[hh,mm]=s.ini.split(
 document.addEventListener('click',e=>{const b=e.target.closest('[data-cs-ss]');if(b)csSsSheet(+b.dataset.csSs)});
 
 
+/* =====================================================================
+   v13 · pedido direto (computador e monitores grandes)
+   - Todos os carrosséis com setas nas extremidades e arrastar com o mouse
+   - Cards de jogo no tamanho do celular (141×188) também no computador
+   - Top 10 com cards de 180px no computador
+   - +2 linhas de categoria na Início; "Ver todos" abre a página da categoria
+   ===================================================================== */
+const C13=[
+  {k:'comum',n:'Categoria Comum',i:'dice',d:'Os jogos que a galera sempre volta para jogar',g:[1,2,4,5,0,3]},
+  {k:'mais',n:'Mais jogados',i:'flame',d:'Os mais jogados da semana na Cumbia',g:[0,3,1,5]},
+  {k:'novos',n:'Novidades',i:'star',d:'Lançamentos e jogos que acabaram de chegar',g:[4,2,5,1]}];
+const C13M=Object.fromEntries(C13.map(c=>[c.k,c]));
+/* Linha da Início: a categoria repetida até 16 cards para o carrossel ter o que avançar */
+function c13Row(c){
+  const pool=c.g.map(i=>GAMES[i]),items=Array.from({length:16},(_,i)=>pool[i%pool.length]);
+  const t=stitle(c.n,true,c.i).replace(/data-toast="[^"]*"/,`data-go="categoria:${c.k}" aria-label="Ver todos os jogos de ${c.n}"`);
+  return `<section class="block">${t}${c13View('c13-'+c.k,items.map((g,i)=>gitem(c.k+i,g)).join(''),'g13')}</section>`;
+}
+/* Carrossel com setas nas extremidades (aparecem a partir do tablet) */
+function c13View(id,inner,cls='',loop=false){
+  return `<div class="hc-v c13 ${cls}"><button class="hc-a prev" data-c13="${id}" data-dir="-1" aria-label="Voltar"${loop?'':' disabled'}>${ic('arrow')}</button>
+  <div class="rail" id="${id}" data-c13r${loop?' data-loop':''} style="gap:16px">${inner}</div>
+  <button class="hc-a next" data-c13="${id}" data-dir="1" aria-label="Avançar">${ic('arrow')}</button></div>`;
+}
+
+/* ---------- Página da categoria (mesmo modelo do Cassino, só com os jogos da categoria) ---------- */
+SCREENS.categoria={label:'Categoria',render:p=>{const c=C13M[p]||C13M[S.c13]||C13[0];S.c13=c.k;S.slotsPage=1;
+  return `<button class="c13-back" data-go="inicio">${ic('chevl')}Início</button>
+  <div class="resumo hero"><div class="bg"><img src="${A.hero}" alt=""></div><h1>${c.n}</h1><p>${c.d} · ${c.g.length} jogos</p></div>
+  <div class="block" style="gap:16px">${tabs(['Selecionados','Mais jogados','Novidades',{l:'A-Z',auto:1}],0,'slotsTab')}</div>
+  <div class="grid c13-grid" id="sgrid">${(S.c13r=1,slotsGrid())}</div>
+  <div class="pager"><button class="pg" data-pg="-1" aria-label="Anterior">${ic('chevl')}</button>${[1,2,3].map(n=>`<button class="n ${n===1?'on':''}" data-pgn="${n}">${n}</button>`).join('')}<button class="pg" data-pg="1" aria-label="Próxima">${ic('chevr')}</button></div>`}};
+const _c13Grid=slotsGrid;
+slotsGrid=function(){
+  const on=S.c13r||cur==='categoria'; S.c13r=0;
+  if(!on||!C13M[S.c13]) return _c13Grid();
+  const pool=C13M[S.c13].g.map(i=>GAMES[i]),off=(S.slotsPage-1)*pool.length;
+  return Array.from({length:rspPerPage()},(_,i)=>gitem('k'+S.slotsPage+'-'+i,pool[(i+off)%pool.length])).join('');
+};
+const _c13Nav=setNav;
+setNav=function(s){_c13Nav(s==='categoria'?'slots':s)};
+/* Computador: colunas da grade = quantos cards de 141px cabem na largura */
+const _c13Cols=rspCols;
+rspCols=function(){
+  if(!RSP_MQ.desk.matches) return _c13Cols();
+  const m=$('#main'); if(!m) return 6; const cs=getComputedStyle(m);
+  const W=m.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  return Math.max(4,Math.floor((W+16)/(141+16)));
+};
+
+/* ---------- Navegação dos carrosséis ---------- */
+function c13Items(r){const t=$('.tl-t',r);return t?t.children:r.children}
+function c13Step(r){
+  const it=c13Items(r); if(it.length<2) return r.clientWidth*.9;
+  const unit=it[1].offsetLeft-it[0].offsetLeft||it[0].offsetWidth+16;
+  return Math.max(unit,Math.floor((r.clientWidth+2)/unit)*unit);
+}
+function c13Sync(r){ if(r.hasAttribute('data-loop')) return;
+  const max=r.scrollWidth-r.clientWidth-2,pv=$(`.hc-a.prev[data-c13="${r.id}"]`),nx=$(`.hc-a.next[data-c13="${r.id}"]`);
+  if(pv) pv.disabled=r.scrollLeft<=2; if(nx) nx.disabled=r.scrollLeft>=max;
+  const v=r.closest('.hc-v'); if(v) v.classList.toggle('static',max<=2);
+}
+/* Setas também no Top 10, nas provedoras e nos destaques do Esportes (que já existiam sem setas).
+   As setas entram ao lado do trilho, sem mover o trilho de lugar (mover reinicia o loop e a revelação). */
+function c13Wrap(r,loop){
+  if(!r||r._c13w) return; r._c13w=1;
+  const p=r.parentNode; p.classList.add('c13p',r.id==='topRail'?'t13':r.id==='pvMarq'?'p13':'e13');
+  r.insertAdjacentHTML('beforebegin',`<button class="hc-a prev" data-c13="${r.id}" data-dir="-1" aria-label="Voltar">${ic('arrow')}</button>`);
+  r.insertAdjacentHTML('afterend',`<button class="hc-a next" data-c13="${r.id}" data-dir="1" aria-label="Avançar">${ic('arrow')}</button>`);
+  if(loop) r.setAttribute('data-loop','');
+  const place=()=>p.style.setProperty('--c13t',(r.offsetTop+r.offsetHeight/2)+'px');
+  place(); if('ResizeObserver' in window) new ResizeObserver(place).observe(r);
+}
+/* Arrastar com o mouse (computador): solta e encaixa no card mais próximo; um arrasto não vira clique */
+const C13_DRAG='.rail,.hc-track,.pvm-track';
+let c13Drag=null,c13Eat=false;
+function c13Down(e){
+  if(e.pointerType!=='mouse'||e.button!==0) return;
+  const r=e.target.closest(C13_DRAG); if(!r||r.scrollWidth<=r.clientWidth+2) return;
+  c13Drag={r,x:e.clientX,s:r.scrollLeft,moved:false};
+}
+function c13Move(e){const d=c13Drag; if(!d) return; const dx=e.clientX-d.x;
+  if(!d.moved){ if(Math.abs(dx)<6) return; d.moved=true; d.r.classList.add('c13-drag'); }
+  d.r.scrollLeft=d.s-dx; e.preventDefault();
+}
+function c13Up(){const d=c13Drag; c13Drag=null; if(!d||!d.moved) return;
+  c13Eat=true; setTimeout(()=>c13Eat=false,0);
+  const r=d.r,it=[...c13Items(r)],tl=r.querySelector('.tl-t');
+  const base=it[0]?it[0].offsetLeft:0; let best=r.scrollLeft,dist=1e9;
+  if(!tl&&!r.hasAttribute('data-loop')) it.forEach(c=>{const x=c.offsetLeft-base;const dd=Math.abs(x-r.scrollLeft);if(dd<dist){dist=dd;best=x}});
+  r.scrollTo({left:best,behavior:RM?'auto':'smooth'});
+  setTimeout(()=>r.classList.remove('c13-drag'),380);
+}
+document.addEventListener('pointerdown',c13Down);
+document.addEventListener('pointermove',c13Move,{passive:false});
+document.addEventListener('pointerup',c13Up);
+document.addEventListener('pointercancel',c13Up);
+document.addEventListener('click',e=>{if(c13Eat){e.preventDefault();e.stopPropagation();c13Eat=false}},true);
+document.addEventListener('dragstart',e=>{if(e.target.closest&&e.target.closest(C13_DRAG)) e.preventDefault()});
+
+function c13Init(root){
+  c13Wrap($('#topRail',root),true);
+  c13Wrap($('#pvMarq',root),true);
+  c13Wrap($('#espHero',root),false);
+  $$('#espHero',root).forEach(r=>{if(!r.hasAttribute('data-c13r'))r.setAttribute('data-c13r','')});
+  $$('[data-c13r]',root).forEach(r=>{ if(r._c13) return; r._c13=1;
+    r.addEventListener('scroll',()=>c13Sync(r),{passive:true});
+    if('ResizeObserver' in window) new ResizeObserver(()=>c13Sync(r)).observe(r);
+    requestAnimationFrame(()=>c13Sync(r)); });
+}
+const _c13Init=initScreen;
+initScreen=function(root){ _c13Init(root); c13Init(root); };
+addEventListener('resize',()=>tlFit&&tlFit());
+
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-c13]'); if(!a) return;
+  const r=document.getElementById(a.dataset.c13); if(!r) return;
+  const dir=+a.dataset.dir||1, loop=r.hasAttribute('data-loop');
+  /* carrosséis em loop (Top 10, provedoras): param de andar, avançam e voltam a andar sozinhos depois */
+  if(loop) r.dispatchEvent(new Event('pointerdown'));
+  r.scrollBy({left:dir*c13Step(r),behavior:RM?'auto':'smooth'});
+  if(loop) setTimeout(()=>r.dispatchEvent(new Event('pointerup')),450);
+});
+
+/* ===== v14 · botão flutuante de depósito (computador) ===== */
+(function(){
+  const b=document.createElement('button');
+  b.className='dep-fab'; b.setAttribute('data-go','deposito'); b.setAttribute('aria-label','Depositar');
+  b.innerHTML=`<svg class="g3" aria-hidden="true"><use href="#g-wallet"/></svg><span class="lb">Depositar</span>`;
+  document.body.appendChild(b);
+  const upd=()=>b.hidden=(typeof cur!=='undefined'&&(cur==='deposito'));
+  const _g=go; go=function(n,o){_g(n,o);upd()};
+})();
+
 var lastHash=location.hash.slice(1);
 addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h!==lastHash&&SCREENS[h.split(':')[0]])go(h)});
 const start=(location.hash||'#inicio').slice(1);
 go(SCREENS[start.split(':')[0]]?start:'inicio');
 </script>
-
-
-<style>
+<style>[hidden]{display:none!important}</style><style>
 /* MVP: aviso de protótipo (não é um site real) */
 .mvp-tag{position:absolute;left:16px;bottom:5px;z-index:2;font:800 8px/1 var(--inter);letter-spacing:.18em;color:var(--y400);pointer-events:none}
 @media (min-width:1024px){.mvp-tag{left:150px;bottom:auto;top:50%;transform:translateY(-50%);padding:5px 8px;border-radius:999px;font-size:10px;background:var(--y900);box-shadow:inset 0 0 0 1px var(--y700)}}
@@ -4370,7 +4579,7 @@ go(SCREENS[start.split(':')[0]]?start:'inicio');
 .mvp-box .btn{margin-top:8px;height:46px;font-size:14px}
 .mvp-foot{width:100%;text-align:center;font-size:11px;line-height:1.5;color:var(--n500)}
 </style><div class="mvp-dlg" id="mvpDlg" role="dialog" aria-modal="true" aria-labelledby="mvpT" hidden>
- <div class="mvp-box"><span class="k">PROTÓTIPO · MVP v11</span>
+ <div class="mvp-box"><span class="k">PROTÓTIPO · MVP v14</span>
   <h2 id="mvpT">Isto não é um site de apostas real</h2>
   <p>É um protótipo de design da Cumbia.bet, feito pela Zeroum para avaliação. Tudo o que aparece é simulado.</p>
   <ul><li>Nenhuma aposta, cadastro, depósito ou saque acontece de verdade.</li><li>Não digite dados pessoais, CPF, cartão ou senhas.</li><li>Saldos, jogos, cotações e prêmios são fictícios.</li></ul>
@@ -4381,6 +4590,6 @@ go(SCREENS[start.split(':')[0]]?start:'inicio');
  try{seen=sessionStorage.getItem('mvpSeen')==='1'}catch(e){}
  if(!seen){d.hidden=false;setTimeout(function(){ok.focus()},50)}
  ok.addEventListener('click',function(){d.hidden=true;try{sessionStorage.setItem('mvpSeen','1')}catch(e){}});
- var f=document.querySelector('footer');if(f){var p=document.createElement('p');p.className='mvp-foot';p.textContent='Protótipo de design (MVP v11) · Cumbia.bet × Zeroum · não é um site real: nenhuma aposta, cadastro ou pagamento é processado.';f.appendChild(p)}
+ var f=document.querySelector('footer');if(f){var p=document.createElement('p');p.className='mvp-foot';p.textContent='Protótipo de design (MVP v14) · Cumbia.bet × Zeroum · não é um site real: nenhuma aposta, cadastro ou pagamento é processado.';f.appendChild(p)}
 })();
 </script></body></html>
