@@ -1,0 +1,236 @@
+/* casino.css · Cassino (#slots), Categoria (#categoria:<k>) e Busca (#busca). Prefixo cs-. Só tokens.
+   Passo por tela (máx. 2): destaque = pedestal do anfitrião (+ a placa do jackpot); Top 10 = faixa magenta com borda em escalão. */
+
+/* ===== destaque ===== */
+.cs-hero{--cs-ph:132px;position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tx art" "jp jp";column-gap:4px;margin-top:28px;padding:20px 16px 0;border-radius:var(--r3);isolation:isolate}
+.cs-hero--mag{background:var(--magenta);color:var(--branco);padding-bottom:16px}
+.cs-hero--nm{background:var(--nm);color:var(--tx)}
+.cs-hero-tx{grid-area:tx;display:flex;flex-direction:column;align-items:flex-start;gap:8px;align-self:center;min-width:0;padding-bottom:20px}
+.cs-hero-k{display:flex;align-items:center;gap:6px}
+.cs-hero--mag .cs-hero-k{color:var(--branco)}
+.cs-hero--mag .cs-hero-k .ic{color:var(--noite)}
+.cs-hero--nm .cs-hero-k{color:var(--tx-2)}
+.cs-hero--nm .cs-hero-k .ic{color:var(--magenta)}
+.cs-hero--mag .pt{color:var(--noite)}
+.cs-hero-s{font-size:var(--fs-s);line-height:1.4;max-width:46ch}
+.cs-hero--mag .cs-hero-s{color:var(--branco)}
+.cs-hero--nm .cs-hero-s{color:var(--tx-2)}
+.cs-hero-m{display:flex;align-items:center;gap:16px;margin-top:2px}
+.cs-hero-n{display:flex;align-items:baseline;gap:6px;font-size:var(--fs-s);font-weight:600;color:var(--tx-2)}
+.cs-hero-n b{font-size:28px;font-weight:800;font-stretch:var(--wd-d);line-height:1;color:var(--tx)}
+.cs-hero--mag .cs-hero-n{color:var(--branco)}
+.cs-hero--mag .cs-hero-n b{color:var(--noite)}
+/* personagem à direita, pode vazar por cima da moldura; pisa na placa (magenta) ou na borda de baixo (noite) */
+.cs-hero-art{grid-area:art;align-self:end;display:flex;justify-content:flex-end;margin-top:calc(-1 * var(--cs-ph) * .34);pointer-events:none;z-index:1}
+.cs-hero-art .ped{width:calc(var(--cs-ph) * var(--ar) * 1.14)}
+.cs-hero-art .ped img{height:var(--cs-ph)}
+.cs-hero-art .ped-s i:nth-child(1){height:10px} .cs-hero-art .ped-s i:nth-child(2){height:20px} .cs-hero-art .ped-s i:nth-child(3){height:15px}
+.cs-hero--jp .cs-hero-art{margin-right:8px}
+
+/* placa do jackpot (noite sobre magenta) · cifra tabular, só ela se move.
+   Celular: valor à esquerda; +18 e a seta para Jackpots à direita (placa baixa, jogos mais cedo na tela). */
+.cs-jp{grid-area:jp;position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:14px 6px 8px 16px;background:var(--noite);border-radius:var(--r2);color:var(--tx)}
+.cs-jp-v{display:flex;flex-direction:column;gap:8px;min-width:0;padding-bottom:6px}
+.cs-jp-k{color:var(--tx-3)}
+.cs-jp-n{display:flex;align-items:baseline;gap:6px;font-weight:800;font-stretch:var(--wd-d);font-size:clamp(2rem,1.55rem + 2vw,3.25rem);line-height:.9;letter-spacing:-.01em;color:var(--rosa);white-space:nowrap}
+.cs-jp-n small{font-size:.46em;letter-spacing:.02em;color:var(--tx-2)}
+.cs-jp-g{display:none}
+.cs-jp-f{grid-column:2;grid-row:1;display:flex;flex-direction:column-reverse;align-items:flex-end;justify-content:space-between;gap:4px}
+.cs-jp-note{display:none}
+.cs-jp-f .age{margin-right:10px}
+.cs-jp-ver{width:44px;padding:0}
+.cs-jp-ver span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (min-width:600px){
+  .cs-hero{--cs-ph:176px;padding:24px 24px 0;column-gap:16px}
+  .cs-hero--mag{padding-bottom:24px}
+  .cs-hero-s{font-size:var(--fs-b)}
+  .cs-jp{grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px 24px;padding:16px 16px 4px 20px}
+  .cs-jp-v{grid-row:1;padding-bottom:0}
+  .cs-jp-g{display:flex;grid-row:1;grid-column:2;align-items:center;gap:8px;justify-self:end}
+  .cs-jp-g p{font-size:13px;color:var(--tx-3);max-width:20ch;line-height:1.3;margin-left:4px}
+  .cs-jp-gc{flex:none;width:44px;aspect-ratio:3/4;border-radius:var(--r2);overflow:hidden;background:var(--n2);transition:transform var(--d2) var(--e-out)}
+  .cs-jp-gc img{width:100%;height:100%;object-fit:cover}
+  .cs-jp-gc:hover{transform:translateY(-2px)}
+  .cs-jp-f{grid-column:1 / -1;grid-row:2;flex-direction:row;align-items:center;min-height:44px;border-top:1px solid var(--ln);margin-left:-4px}
+  .cs-jp-note{display:block;padding-left:4px;font-size:13px;color:var(--tx-3);line-height:1.3}
+  .cs-jp-f .age{margin:0 0 0 auto}
+  .cs-jp-ver{width:auto;padding:0 4px}
+  .cs-jp-ver span{position:static;width:auto;height:auto;overflow:visible;clip:auto}
+}
+@media (min-width:1024px){
+  /* computador: o destaque do cassino vira uma faixa só — texto · placa · personagem */
+  .cs-hero{--cs-ph:196px;column-gap:24px;margin-top:24px;padding:28px 24px 0 32px;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"tx art"}
+  .cs-hero--jp{grid-template-columns:minmax(0,1fr) minmax(260px,320px) auto;grid-template-areas:"tx jp art";align-items:center}
+  .cs-hero--mag{padding-bottom:0}
+  .cs-hero-tx{padding-bottom:28px}
+  .cs-jp{align-self:center;margin-bottom:28px;grid-template-columns:minmax(0,1fr) auto}
+  .cs-jp-n{font-size:clamp(2rem,1rem + 2.2vw,2.75rem)}
+  .cs-jp-g{display:none}
+  .cs-jp-g p{display:none}
+  .cs-hero--jp .cs-hero-art{margin-right:0}
+  .cs-hero-art{margin-top:-48px}
+}
+@media (min-width:1280px){
+  .cs-hero{--cs-ph:220px}
+  .cs-hero--jp{grid-template-columns:minmax(0,1fr) minmax(300px,400px) auto}
+  .cs-jp-g{display:flex}
+}
+@media (min-width:1440px){
+  /* tela larga: a placa cresce junto; com espaço de sobra, mostra onde o prêmio acumula */
+  .cs-hero--jp{grid-template-columns:minmax(0,1.2fr) minmax(400px,1fr) auto}
+  .cs-jp{width:100%;max-width:600px;justify-self:end}
+}
+@media (min-width:1680px){.cs-jp-g p{display:block}}
+
+/* ===== cassino: ferramentas ===== */
+.cs-lobby{display:flex;flex-direction:column;gap:16px}
+.cs-tools{display:flex;flex-direction:column;gap:12px}
+.cs-pvb{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border-radius:var(--r2);background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln2);color:var(--tx-3);font-weight:600;font-stretch:var(--wd-t);font-size:15px;text-align:left;transition:background var(--d1),color var(--d1);min-width:0}
+.cs-pvb:hover{background:var(--n2);color:var(--tx-2)}
+.cs-pvb .ic{color:var(--tx-2)}
+.cs-pvb-v{color:var(--tx);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.cs-pvb .ic:last-child{margin-left:auto}
+.cs-pvb.is-on{background:var(--rosa);color:var(--noite);box-shadow:none}
+.cs-pvb.is-on .ic,.cs-pvb.is-on .cs-pvb-v{color:var(--noite)}
+@media (min-width:1024px){
+  .cs-tools{flex-direction:row;align-items:center;gap:16px}
+  .cs-tools .chips--scroll{margin:0;padding:0;flex:1;min-width:0}
+  .cs-pvb{flex:none;width:260px}
+}
+/* filtro ativo (provedora) */
+.cs-act{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;margin-top:-4px}
+.cs-act-k{color:var(--tx-3)}
+.cs-act-tag{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 12px;border-radius:var(--r2);background:var(--n2);box-shadow:inset 0 0 0 1px var(--ln2);color:var(--tx);font-weight:700;font-stretch:var(--wd-t);font-size:14px;position:relative}
+.cs-act-tag::after{content:"";position:absolute;inset:-4px 0}
+.cs-act-tag:hover{background:var(--n3)}
+.cs-act-tag .ic{color:var(--tx-2)}
+.cs-act-l{display:block;width:40px;height:16px;background:var(--rosa);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.cs-act-l.cs-pv-logo{width:56px;height:12px;fill:var(--magenta);background:none}
+.cs-act-x{margin-left:2px}
+/* abas de ordem + contador */
+.cs-sort{display:flex;flex-direction:column;gap:6px}
+.cs-sort .tabs{margin-left:calc(-1 * var(--gl));margin-right:calc(-1 * var(--gr));padding-inline:calc(var(--gl) - 12px) var(--gr)}
+.cs-cnt{font-size:13px;color:var(--tx-3)}
+@media (min-width:768px){
+  .cs-sort{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:16px;border-bottom:1px solid var(--ln)}
+  .cs-sort .tabs{border-bottom:0;margin:0 0 -1px -12px;padding:0}
+  .cs-cnt{padding-bottom:13px;white-space:nowrap}
+}
+
+/* ===== grade e paginação ===== */
+.cs-body{min-height:200px}
+.cs-grid{display:grid;grid-template-columns:repeat(var(--cols,2),minmax(0,1fr));gap:20px 12px;padding-top:4px}
+.cs-grid .gc{width:auto}
+.cs-grid:focus-visible{outline-offset:6px}
+@media (min-width:1024px){.cs-grid{grid-template-columns:repeat(var(--cols),var(--gc-w));justify-content:space-between;gap:24px 16px}}
+.cs-pg{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:28px}
+.cs-pg-n{display:flex;gap:6px}
+.cs-pg-b,.cs-pg-a{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;min-width:44px;border-radius:var(--r2);background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln);color:var(--tx-2);font-weight:700;font-stretch:var(--wd-t);font-size:15px;transition:background var(--d1),color var(--d1)}
+.cs-pg-b:hover,.cs-pg-a:hover:not([disabled]){background:var(--n2);color:var(--tx)}
+.cs-pg-b.is-on{background:var(--rosa);color:var(--noite);box-shadow:none;cursor:default}
+.cs-pg-a{padding:0 10px}
+.cs-pg-a span{display:none}
+.cs-pg-a[disabled]{opacity:.38;cursor:not-allowed}
+.cs-pg-gap{display:grid;place-items:center;width:20px;color:var(--tx-3);font-weight:700}
+@media (min-width:600px){.cs-pg-a{padding:0 16px 0 12px}.cs-pg-a--r{padding:0 12px 0 16px}.cs-pg-a span{display:inline}}
+@media (min-width:1024px){.cs-pg{justify-content:flex-end}}
+
+/* vazios */
+.cs-empty{display:flex;justify-content:center;padding:8px 0 16px}
+.cs-empty .empty{max-width:420px}
+.cs-empty-b{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:6px}
+.cs-empty-b .btn{margin-top:0}
+
+/* ===== seletor de provedora (painel) ===== */
+.cs-pvsh .sh-bd{gap:14px}
+.cs-pvg{--row:68px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:var(--row);gap:8px;height:calc(var(--row) * 5 + 8px * 4);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--ln2) transparent;padding:2px;margin:-2px;align-content:start}
+.cs-pv{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px 4px 6px;border-radius:var(--r2);background:var(--n2);box-shadow:inset 0 0 0 1px var(--ln);color:var(--tx-2);min-width:0;transition:background var(--d1)}
+.cs-pv:hover{background:var(--n3)}
+.cs-pv-l{display:block;width:min(100%,64px);height:22px;background:var(--rosa);-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.cs-pv:hover .cs-pv-l{background:var(--branco)}
+svg.cs-pv-l.cs-pv-logo{background:none;fill:var(--magenta);height:14px;margin-block:4px}
+.cs-pv:hover svg.cs-pv-logo{fill:var(--magenta)}
+.cs-pv-i{display:grid;place-items:center;height:22px;color:var(--rosa)}
+.cs-pv-i .ic{width:22px;height:22px}
+.cs-pv-n{max-width:100%;font-size:11px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-inline:2px}
+.cs-pv-c{position:absolute;top:4px;right:4px;min-width:18px;height:18px;padding:0 4px;border-radius:var(--r1);background:var(--magenta);color:var(--branco);font-size:11px;font-weight:800;line-height:18px;text-align:center}
+.cs-pv.is-0 .cs-pv-n{color:var(--tx-3)}
+.cs-pv.is-on{background:var(--rosa);color:var(--noite);box-shadow:none}
+.cs-pv.is-on .cs-pv-l,.cs-pv.is-on:hover .cs-pv-l{background:var(--noite)}
+.cs-pv.is-on svg.cs-pv-logo{fill:var(--noite)}
+.cs-pv.is-on .cs-pv-i,.cs-pv.is-on .cs-pv-n{color:var(--noite)}
+.cs-pv.is-on .cs-pv-c{background:var(--noite);color:var(--branco)}
+.cs-pv[hidden]{display:none}
+.cs-pv-none{font-size:var(--fs-s);color:var(--tx-3);margin-top:-6px}
+@media (min-width:768px){.cs-pvg{--row:76px}.cs-pv-l{height:26px}.cs-pv-n{font-size:12px}}
+
+/* ===== categoria ===== */
+.cs-crumb{margin-bottom:-20px;position:relative;z-index:2}
+.cs-crumb span[aria-current]{color:var(--tx)}
+.cs-crumb button:first-child .ic{color:var(--magenta)}
+@media (min-width:1024px){.cs-crumb{margin-bottom:-28px}}
+
+/* Top 10: mesma linguagem da Início — numeral display noite atrás do cartão, na faixa magenta */
+.cs-t10s .st{margin-bottom:20px}
+/* o numeral encosta no cartão (lado direito alinhado à capa, um pouco por baixo dela); o "10" usa algarismos proporcionais e
+   tracking apertado para caber inteiro na mesma faixa dos outros, sem encolher o cartão */
+.cs-t10{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
+.cs-t10i{position:relative;min-width:0}
+.cs-t10i .gc{position:relative;z-index:1;width:100%}
+@media (min-width:600px){.cs-t10{grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 16px}}
+@media (min-width:1024px){.cs-t10{grid-template-columns:repeat(5,minmax(0,1fr));gap:32px 20px}.cs-t10i .gc{max-width:180px}}
+
+/* ===== busca ===== */
+.cs-srch{display:flex;gap:8px}
+.cs-srch .fld-box{flex:1;min-width:0;padding-right:4px}
+.cs-srch .btn{height:48px}
+.cs-srch input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.cs-srch-x{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r2);color:var(--tx-3)}
+.cs-srch-x:hover{background:var(--ln);color:var(--tx)}
+.cs-srch-x .ic{color:inherit}
+@media (min-width:1024px){.cs-srch{max-width:760px}}
+.cs-res{display:flex;flex-direction:column;gap:36px}
+.cs-q{overflow-wrap:anywhere}
+.cs-sug{display:flex;flex-wrap:wrap;gap:8px}
+.cs-sug .chip .ic{width:16px;height:16px;color:var(--magenta)}
+.cs-sug-l{font-size:var(--fs-s);font-weight:600;color:var(--tx-2);margin-top:4px}
+.cs-empty--b .empty{max-width:520px}
+.cs-empty--b .cs-sug{justify-content:center}
+.cs-g .st{margin-bottom:14px}
+.cs-sgrid{margin-bottom:4px}
+mark.cs-hl{background:none;color:var(--rosa);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--magenta)}
+/* provedora encontrada */
+.cs-pvl{margin-top:8px}
+.cs-pvr .li-i{background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln)}
+.cs-pvr-l{display:block;width:30px;height:16px;background:var(--rosa);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+svg.cs-pvr-l.cs-pv-logo{background:none;fill:var(--magenta);height:8px}
+/* partidas */
+.cs-mrs{display:grid}
+.cs-mr{display:flex;align-items:center;gap:12px;width:100%;min-height:68px;padding:10px 0;border-bottom:1px solid var(--ln);text-align:left}
+.cs-mr .li-i .ic{color:var(--rosa)}
+.cs-mr-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.cs-mr-t b{font-weight:700;font-stretch:var(--wd-t);font-size:16px;line-height:1.2}
+.cs-mr-t small{font-size:13px;color:var(--tx-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-mr-r{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px;font-size:13px;color:var(--tx-2);text-align:right}
+.cs-mr-sc{font-weight:700;color:var(--tx)}
+.cs-mr-go{color:var(--tx-3);flex:none}
+.cs-mr:hover .cs-mr-t b{color:var(--tx-2)}
+.cs-mr:hover .cs-mr-go{color:var(--tx)}
+.cs-more{margin-top:12px}
+@media (min-width:1024px){.cs-mrs{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}}
+/* categorias */
+.cs-cts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:8px}
+.cs-ct{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 14px 10px 10px;border-radius:var(--r3);background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln);text-align:left;transition:background var(--d1)}
+.cs-ct:hover{background:var(--n2)}
+.cs-ct-i{flex:none;width:44px;height:44px;border-radius:var(--r2);display:grid;place-items:center;background:var(--magenta);color:var(--branco)}
+.cs-ct-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.cs-ct-t b{font-weight:800;font-stretch:var(--wd-d);font-size:20px;line-height:1}
+.cs-ct-t small{font-size:12px;color:var(--tx-3)}
+.cs-ct>.ic{color:var(--tx-3)}
+
+/* CORE-FIX: o roteador foca o h1 (tabindex=-1) ao trocar de tela e o :focus-visible desenha o contorno num título que não é
+   interativo. Nas telas deste módulo o contorno do título focado por programa some; o foco continua lá para o leitor de tela. */
+.scr-slots h1[tabindex="-1"]:focus-visible,.scr-categoria h1[tabindex="-1"]:focus-visible,.scr-busca h1[tabindex="-1"]:focus-visible{outline:none}
+/* CORE-FIX: o mesmo vale para o título do painel do seletor de provedora, que recebe o foco ao abrir (sheet foca o h2). */
+.cs-pvsh .sh-hd h2:focus-visible{outline:none}

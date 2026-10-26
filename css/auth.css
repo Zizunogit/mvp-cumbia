@@ -1,0 +1,184 @@
+/* auth.css · entrar e cadastrar: login, recuperar senha, bloqueio, pausa, cadastro e boas-vindas. Prefixo au-.
+   Celular (<768): painel alto que sobe de baixo e vira tela cheia ao focar um campo; a faixa de arte encolhe para uma barra com o logo.
+   Computador (≥768): cartão dividido, arte à esquerda (cena com placa noite, ou magenta com o Conejo no pedestal) e formulário à direita.
+   O passo (no máximo 2 por tela): degrau entre a arte e o formulário (celular) ou placa/pedestal (computador) + indicador de passos em escalão.
+   Só tokens; sombra só no painel (flutua); um laranja por vista. */
+
+.au-scrim{position:fixed;inset:0;z-index:var(--z-scrim);background:var(--scrim);opacity:0;transition:opacity var(--d2)}
+.au-scrim.is-open{opacity:1}
+.au{--au-art:132px;--au-edge:var(--n1);position:fixed;z-index:var(--z-sheet);left:0;right:0;bottom:0;height:calc(100vh - 40px);height:calc(100dvh - 40px - var(--safe-t));display:flex;flex-direction:column;background:var(--n1);color:var(--tx);border-radius:var(--r4) var(--r4) 0 0;box-shadow:var(--sombra);transform:translateY(100%);transition:transform var(--d3) var(--e-out),height var(--d3) var(--e-out),border-radius var(--d3)}
+.au.is-open{transform:none}
+.au.is-full{--au-art:calc(56px + var(--safe-t));height:100vh;height:100dvh;border-radius:0}
+.au.is-under{z-index:calc(var(--z-scrim) - 1)}
+.au-scrim.is-under{z-index:calc(var(--z-scrim) - 2)}
+.au.has-why{--au-edge:var(--rosa)}
+
+/* arte: faixa no celular, coluna no computador */
+.au-art{position:relative;flex:none;height:var(--au-art);border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0;background:var(--noite);transition:height var(--d3) var(--e-out),background var(--d2)}
+.au-art-im{position:absolute;inset:0;overflow:hidden;border-radius:inherit;transition:opacity var(--d2)}
+.au-art-im img{width:100%;height:100%;object-fit:cover}
+.au-art::after{content:"";position:absolute;z-index:1;left:0;right:0;bottom:-1px;height:13px;background:var(--au-edge);clip-path:polygon(0 100%,0 66%,28% 66%,28% 33%,56% 33%,56% 0,100% 0,100% 100%)}
+.au--conejo .au-art{background:var(--magenta)}
+.au-host{position:absolute;z-index:2;right:76px;bottom:12px;transition:opacity var(--d2)}
+.au-host .ped{--pw:104px;--ph:150px}
+.au-host .ped img{margin-bottom:0}
+.au-host .ped-s{display:none}
+.au-logo{position:absolute;z-index:2;left:var(--gl);top:calc(var(--safe-t) + 18px);height:20px;width:auto;aspect-ratio:1494/305;fill:var(--magenta);opacity:0;transition:opacity var(--d2)}
+.au-plate{display:none}
+/* celular, arte magenta: a frase da marca ocupa o vazio à esquerda do Conejo (noite sobre magenta só em 24 px+ bold) */
+.au--conejo .au-plate{display:block;position:absolute;z-index:1;left:var(--gl);top:22px;right:196px;transition:opacity var(--d2)}
+.au--conejo .au-plate .lab{display:none}
+.au--conejo .au-plate p{font-size:24px;font-weight:800;font-stretch:var(--wd-d);line-height:.95;color:var(--noite);text-wrap:balance}
+.au.is-full .au-plate{opacity:0}
+.au.is-full .au-art{background:var(--noite)}
+.au.is-full .au-art-im,.au.is-full .au-host{opacity:0}
+.au.is-full .au-logo{opacity:1}
+
+/* fechar */
+.au-x{position:absolute;z-index:3;top:10px;right:10px;width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r2);background:var(--noite);color:var(--rosa);transition:background var(--d1)}
+.au-x:hover{background:var(--n2)}
+.au.is-full .au-x{top:calc(var(--safe-t) + 6px);background:transparent}
+
+/* formulário */
+.au-main{position:relative;flex:1;min-height:0;min-width:0;display:flex;flex-direction:column}
+.au-why{flex:none;display:flex;align-items:center;gap:10px;margin:0;padding:10px var(--gr) 12px var(--gl);background:var(--rosa);color:var(--noite);font-weight:700;font-stretch:var(--wd-t);font-size:15px;line-height:1.25}
+.au-why .ic{width:20px;height:20px;flex:none}
+.au-bd{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;scrollbar-width:thin}
+.au-in{display:flex;flex-direction:column;gap:16px;padding:16px var(--gr) calc(24px + var(--safe-b)) var(--gl);margin-bottom:auto}
+.au-hd{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.au-hd h2:focus{outline:none}
+.au-k{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;color:var(--tx-3);min-height:16px}
+.au-k-n{font-size:13px;font-weight:600;color:var(--tx-2);line-height:1}
+.au-k .lab+.au-k-n::before{content:"·";margin-right:6px;color:var(--tx-3)}
+.au-hd h2{font-size:clamp(2rem,1.7rem + 1.2vw,2.5rem);font-weight:800;font-stretch:var(--wd-d);line-height:var(--lh-d);letter-spacing:-.005em;text-wrap:balance}
+.au-hd p{color:var(--tx-2);font-size:15px;line-height:1.4;max-width:42ch}
+.au-alertbox:empty{display:none}
+.au-alert>div{display:flex;flex-direction:column;gap:2px;font-weight:500;color:var(--tx-2)}
+.au-alert b{color:var(--tx);font-weight:700}
+.au-alert .lnk{align-self:flex-start;min-height:36px;margin-bottom:-6px}
+
+/* passos em escalão */
+.au-steps{display:inline-flex;align-items:flex-end;gap:3px;height:14px;flex:none}
+.au-steps i{width:12px;background:var(--ln2)}
+.au-steps--2 i:nth-child(1){height:8px} .au-steps--2 i:nth-child(2){height:14px}
+.au-steps--3 i:nth-child(1){height:6px} .au-steps--3 i:nth-child(2){height:10px} .au-steps--3 i:nth-child(3){height:14px}
+.au-steps i.is-done{background:var(--rosa)} .au-steps i.is-on{background:var(--magenta)}
+
+.au-form{display:flex;flex-direction:column;gap:14px}
+.au-form>.btn{margin-top:4px}
+.au-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:-10px;min-height:20px}
+.au-row .lnk{margin-left:auto;margin-block:-8px}
+.au-row--c{min-height:0;margin-top:-14px}
+.au-caps{font-size:13px;font-weight:600;color:var(--rosa);line-height:1.3}
+.au-row--c .au-caps:not(:empty){margin-top:4px}
+.au-eye{min-width:72px;justify-content:center}
+.au-or{display:flex;align-items:center;gap:12px;color:var(--tx-3);font-size:13px;font-weight:600}
+.au-or::before,.au-or::after{content:"";flex:1;height:1px;background:var(--ln)}
+.au-alt{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:6px;font-size:var(--fs-s);color:var(--tx-3);text-align:center}
+.au-alt .lnk{font-size:var(--fs-s);padding-inline:2px}
+.au-alt .lnk .ic{width:16px;height:16px}
+.au-dot{color:var(--tx-3)}
+.au-in>.age{align-self:center;max-width:36ch}
+.au-p{color:var(--tx-2);font-size:15px}
+
+/* regras de senha ao vivo (forma + texto, nunca só cor) */
+.au-rules{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:-6px;font-size:13px;color:var(--tx-3)}
+.au-rules li{display:flex;align-items:center;gap:6px}
+.au-r-o{width:12px;height:12px;margin:2px;border-radius:var(--r1);box-shadow:inset 0 0 0 1.5px var(--tx-3);flex:none}
+.au-rules .ic{display:none;width:16px;height:16px;color:var(--magenta)}
+.au-rules li.is-ok{color:var(--tx)}
+.au-rules li.is-ok .ic{display:block}
+.au-rules li.is-ok .au-r-o{display:none}
+
+/* código de 6 números: um campo só, desenhado em 6 casas */
+.au-code{position:relative;height:60px}
+.au-code input{position:absolute;inset:0;z-index:1;width:100%;height:100%;border:0;margin:0;padding:0;background:transparent;color:transparent;caret-color:transparent;font-size:16px;outline:none;cursor:text}
+.au-code input::selection{background:transparent}
+.au-code-b{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;height:100%}
+.au-code-b i{display:grid;place-items:center;border-radius:var(--r2);background:var(--n2);box-shadow:inset 0 0 0 1.5px var(--ln2);font-style:normal;font-weight:800;font-stretch:var(--wd-d);font-size:30px;font-variant-numeric:tabular-nums;color:var(--tx);transition:box-shadow var(--d1)}
+.au-code-b i.is-fill{box-shadow:inset 0 0 0 1.5px var(--tx-3)}
+.au-code-b i.is-cur{box-shadow:inset 0 0 0 2px var(--rosa)}
+.au-codefld.is-err .au-code-b i{box-shadow:inset 0 0 0 2px var(--magenta)}
+.au-resend{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13px;color:var(--tx-3);margin-top:-4px;min-height:24px}
+.au-resend .ic{color:var(--tx-3)}
+.au-resend .lnk{font-size:13px;min-height:40px;margin-block:-8px}
+
+/* cadastro */
+.au-cpfq{display:flex;align-items:center;gap:12px;margin-top:-6px;padding:12px 14px;border-radius:var(--r2);background:var(--n2);font-size:var(--fs-s);color:var(--tx-2)}
+.au-cpfq .ic{width:28px;height:28px;color:var(--rosa);flex:none}
+.au-cpfq.is-ok{box-shadow:inset 3px 0 0 var(--magenta)}
+.au-cpfq div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.au-cpfq .lab{color:var(--tx-3)}
+.au-cpfq b{font-size:17px;font-weight:800;font-stretch:var(--wd-t);letter-spacing:.06em;color:var(--tx)}
+.au-cpfq small:last-child{font-size:12px;color:var(--tx-3)}
+.au-promo{display:flex;flex-direction:column;gap:8px;margin-top:-4px}
+.au-promo-b{align-self:flex-start}
+.au-promo-b .ic{width:18px;height:18px;color:var(--magenta)}
+.au-ckf{gap:0}
+.au-ckf>.ck{display:flex;justify-content:flex-start;gap:12px;font-size:var(--fs-s);font-weight:400;color:var(--tx-2)}
+.au-ckf .ck{padding-bottom:4px}
+.au-ckf.is-err .ck-b{box-shadow:inset 0 0 0 2px var(--magenta)}
+.au-ckf .fld-err{padding-left:34px}
+.au-form .ck{padding-block:6px}
+
+/* bloqueio, pausa, confirmações */
+.au-when{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:var(--r3);background:var(--n2);box-shadow:inset 0 0 0 1px var(--ln)}
+.au-when .lab{color:var(--tx-3)}
+.au-when b{font-size:clamp(1.75rem,1.5rem + 1vw,2.25rem);font-weight:800;font-stretch:var(--wd-d);line-height:1;color:var(--rosa)}
+.au-lib{display:flex;flex-direction:column}
+.au-lib .lab{color:var(--tx-3);margin-bottom:2px}
+.au-lib .li{min-height:56px}
+.au-small{font-size:12px;color:var(--tx-3);padding-top:6px}
+.au-acts{display:flex;flex-direction:column;gap:8px}
+.au-help{font-size:13px;color:var(--tx-3);text-align:center}
+.au-fala{font-size:var(--fs-h);font-weight:600;font-stretch:var(--wd-t);line-height:1.35;color:var(--tx);padding:2px 0 2px 14px;box-shadow:inset 3px 0 0 var(--magenta)}
+
+/* carregando: o painel não aceita toque, o botão mantém a largura */
+.au.is-busy .au-main{cursor:progress}
+.au.is-busy .au-bd{pointer-events:none}
+.au [aria-disabled="true"]{opacity:.55}
+
+@media (prefers-reduced-motion:no-preference){
+  .au-in{animation:auIn var(--d3) var(--e-out) both}
+  @keyframes auIn{from{opacity:.001;transform:translateY(6px)}}
+}
+
+/* ===== computador e tablet: cartão dividido ===== */
+@media (min-width:768px){
+  .au{left:50%;top:50%;right:auto;bottom:auto;width:min(880px,calc(100vw - 48px));height:min(720px,calc(100vh - 48px));height:min(720px,calc(100dvh - 48px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-radius:var(--r4);overflow:hidden;transform:translate(-50%,-48%);opacity:0;transition:transform var(--d3) var(--e-out),opacity var(--d2)}
+  .au.is-open{transform:translate(-50%,-50%);opacity:1}
+  .au.is-full{height:min(720px,calc(100dvh - 48px));border-radius:var(--r4)}
+  /* cadastro (arte magenta, sem corte de cena) usa a altura que a tela tiver, até 860 px */
+  .au--conejo,.au--conejo.is-full{height:min(860px,calc(100vh - 48px));height:min(860px,calc(100dvh - 48px))}
+  .au-art{height:auto;min-height:0;display:flex;flex-direction:column;border-radius:0}
+  .au-art::after,.au-logo{display:none}
+  .au-art-im{position:relative;inset:auto;flex:1;min-height:0;border-radius:0}
+  .au-plate{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1;margin-top:-16px;padding:34px 28px 28px;background:var(--noite);clip-path:polygon(0 0,58% 0,58% 8px,79% 8px,79% 16px,100% 16px,100% 100%,0 100%)}
+  .au-plate .lab{color:var(--tx-3)}
+  .au-plate p{font-size:30px;font-weight:800;font-stretch:var(--wd-d);line-height:.95;color:var(--tx);text-wrap:balance}
+  /* Conejo no pedestal sobre o magenta */
+  .au--conejo .au-art-im{display:none}
+  .au--conejo .au-plate{position:relative;left:auto;top:auto;right:auto;order:-1;margin:0;padding:40px 32px 0;background:transparent;clip-path:none}
+  .au--conejo .au-plate .lab{display:block}
+  .au--conejo .au-plate .lab{color:var(--branco)}
+  .au--conejo .au-plate p{font-size:clamp(2rem,1.4rem + 1.2vw,2.5rem);color:var(--noite);max-width:12ch}
+  .au-host{right:auto;left:50%;bottom:0;transform:translateX(-50%)}
+  .au-host .ped{--pw:300px;--ph:min(420px,52vh)}
+  .au-host .ped img{margin-bottom:-6px}
+  .au-host .ped-s{display:grid}
+  .au-x{top:12px;right:12px;background:transparent;color:var(--tx-2)}
+  .au-x:hover{background:var(--ln)}
+  .au.has-why .au-x{color:var(--noite)}
+  .au.has-why .au-x:hover{background:var(--ln-m)}
+  .au-why{padding:14px 64px 14px 40px;min-height:68px}
+  .au-in{padding:36px 40px 28px;margin-block:auto;gap:14px}
+}
+@media (min-width:768px) and (max-width:1023px){
+  /* coluna de arte mais estreita: a placa cresce (frase em 2 linhas) para a cena caber inteira, sem cortar o Maestro */
+  .au-plate{padding:36px 24px 32px}
+  .au-plate p{font-size:34px;max-width:13ch}
+  .au--conejo .au-plate{padding:36px 28px 0}
+}
+@media (min-width:1024px){
+  .au{grid-template-columns:420px minmax(0,1fr)}
+}

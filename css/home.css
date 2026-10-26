@@ -1,0 +1,151 @@
+/* home.css · Início, painel do jogo, painel do torneio, menu da conta e componentes de esporte compartilhados (crest, mc, bc). Prefixo h- */
+
+/* banners: 1 no celular, 2 entre 768 e 1439, 3 a partir de 1440 (16:9) */
+.h-bn{display:flex;flex-direction:column}
+.h-bn-rail .rail-track{gap:16px}
+/* Ronda 1 · d2 C: arte 16:9 completa y limpia; la información va en una franja noche abajo que sube sobre el arte en escalón (el paso en la unión) */
+.h-bni{width:100%;position:relative;display:flex;flex-direction:column;border-radius:var(--r3);overflow:hidden;background:var(--n1);container-type:inline-size;max-width:100%}
+@media (min-width:768px){.h-bni{width:calc((100% - 16px) / 2)}.h-dots{display:none}}
+@media (min-width:1440px){.h-bni{width:calc((100% - 32px) / 3)}}
+.h-bn-art{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--n2)}
+.h-bn-art img{width:100%;height:100%;object-fit:cover}
+.h-bn-pl{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;align-content:start;column-gap:12px;padding:10px 16px 16px;background:var(--n1)}
+.h-bn-pl::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:18px;background:inherit;clip-path:polygon(0 0,46% 0,46% 33%,72% 33%,72% 66%,100% 66%,100% 100%,0 100%)}
+.h-bn-tx{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.h-bn-k{display:flex;align-items:center;gap:6px;color:var(--tx-2)}
+.h-bn-k .ic{color:var(--magenta)}
+.h-bn-t{font-size:clamp(1.375rem,6.4cqi,2.25rem);font-weight:800;font-stretch:var(--wd-d);line-height:.92;text-wrap:balance}
+.h-bn-s{display:none;font-size:13px;color:var(--tx-2)}
+.h-bn-pl .btn{flex:none}
+.h-bn-age{position:absolute;right:0;top:0;z-index:1;background:var(--noite);color:var(--tx-2);font-size:10px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-bottom-left-radius:var(--r2)}
+@container (min-width:420px){.h-bn-s{display:block}.h-bn-pl{padding:12px 24px 22px}.h-bn-pl::before{height:24px}.h-bn-tx{gap:8px}}
+
+/* busca + filtros */
+.h-tools{display:flex;flex-direction:column;gap:12px}
+.h-srch{display:flex;gap:8px}
+.h-srch .fld-box{flex:1;min-width:0}
+.h-srch .btn{height:48px}
+@media (min-width:1024px){.h-tools{flex-direction:row;align-items:center}.h-srch{flex:0 1 560px}.h-tools .chips--scroll{margin:0;padding:0;flex:1}}
+.h-filt{display:flex;flex-direction:column}
+
+/* Top 10 na faixa magenta */
+.h-t10r .rail-in{gap:12px}
+.h-t10{flex:none;position:relative}
+.h-t10 .gc{position:relative;z-index:1;width:var(--t10-w)}
+
+/* provedoras */
+.h-pvs .st{margin-bottom:12px}
+.h-pvr .rail-in{gap:10px}
+.h-pv{flex:none;width:132px;height:64px;display:grid;place-items:center;border-radius:var(--r2);background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln);transition:background var(--d1)}
+.h-pv:hover{background:var(--n2)}
+.h-pv-l{display:block;max-width:96px;max-height:30px;width:96px;background:var(--rosa);-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.h-pv:hover .h-pv-l{background:var(--branco)}
+
+/* torneios */
+.h-tc{width:272px;display:flex;flex-direction:column;border-radius:var(--r3);overflow:hidden;background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln)}
+.h-tc-art{position:relative;aspect-ratio:16/9;overflow:visible}
+.h-tc-art>img{width:100%;height:100%;object-fit:cover}
+.h-tc-host{position:absolute;right:6px;bottom:-26px;height:118%;z-index:1}
+.h-tc-host img{height:100%;width:auto}
+.h-tc-bd{display:flex;flex-direction:column;gap:6px;padding:14px 14px 16px;position:relative}
+.h-tc-n{font-size:var(--fs-h);font-weight:700;font-stretch:var(--wd-t);line-height:1.15;max-width:60%}
+.h-tc-pr{font-size:30px;font-weight:800;font-stretch:var(--wd-d);line-height:1;color:var(--rosa)}
+.h-tc-meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--tx-3);margin-bottom:6px}
+.h-tc-meta>span{display:inline-flex;align-items:center;gap:4px}
+@media (min-width:1024px){.h-tc{width:300px}}
+
+/* esportes (faixa rosa) */
+.h-spr .rail-track{gap:10px}
+.h-sp{width:140px;min-height:132px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px;border-radius:var(--r3);background:var(--noite);color:var(--tx);text-align:left;transition:background var(--d1)}
+.h-sp:hover{background:var(--n1)}
+.h-sp-i{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r2);background:var(--magenta);color:var(--branco)}
+.h-sp b{font-size:22px;font-weight:800;font-stretch:var(--wd-d);line-height:1}
+.h-sp small{font-size:12px;color:var(--tx-3);margin-top:-12px}
+.h-sp.is-soon .h-sp-i{background:var(--n2);color:var(--tx-3)}
+.h-sp.is-soon b{color:var(--tx-2)}
+/* Ronda 1 · corrección rápida: en la computadora los deportes caben en una sola línea, sin carrusel (el nombre se ajusta al ancho de la tarjeta) */
+@media (min-width:1024px){
+  .h-spr .rail-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);overflow:visible;scroll-snap-type:none;margin-inline:0;padding-inline:0;cursor:auto;-webkit-mask-image:none;mask-image:none}
+  .h-spr .rail-arw{display:none}
+  .h-sp{width:auto;min-width:0;padding:12px;container-type:inline-size}
+  .h-sp b{font-size:clamp(15px,18cqi,22px)}
+  .h-sp small{font-size:clamp(10.5px,11.5cqi,12px)}
+}
+
+/* esporte: escudo, cartão de partida e cartão de aumentada (reutilizados em sport.js) */
+.crest{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:var(--r2);background:var(--n3);color:var(--rosa);font-size:9px;font-weight:800;letter-spacing:.04em}
+.mc,.bc{width:288px;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:var(--r3);background:var(--n1);box-shadow:inset 0 0 0 1px var(--ln)}
+.mc-hd{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:24px;text-align:left}
+.mc-lg{font-size:12px;font-weight:600;color:var(--tx-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-t{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx-2);flex:none}
+.mc-tm{display:flex;flex-direction:column;gap:6px;text-align:left}
+.mc-r{display:flex;align-items:center;gap:10px;min-height:28px}
+.mc-r b{flex:1;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-r i{font-style:normal;font-weight:800;font-size:18px;min-width:20px;text-align:right}
+.mc-mk{align-self:flex-start;margin-block:-8px -10px}
+.odds3--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bc-hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bc-tm{font-weight:700;font-stretch:var(--wd-t);font-size:16px;line-height:1.25;text-align:left}
+.bc-sel{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--tx-2);flex:1}
+.bc-sel li{display:flex;gap:6px;align-items:center}
+.bc-sel .ic{color:var(--magenta)}
+.bc-ft{display:flex;align-items:center;gap:10px}
+.bc-de{display:flex;align-items:center;gap:6px;color:var(--tx-3);font-size:14px}
+.bc-de s{text-decoration-thickness:1.5px}
+.bc-ft .odd{flex:1}
+.h-oddt{display:flex;align-items:center;gap:6px;font-size:12px;margin:-8px 0 12px}
+
+/* categorias do cassino (faixa magenta, máx. 4 por avanço) */
+.h-catr .rail-track{gap:12px;padding-top:30px}
+.h-cats .st{margin-bottom:0}
+.h-cat{position:relative;flex:none;width:168px;height:208px;border-radius:var(--r3);background:var(--noite);color:var(--tx);text-align:left;display:block;transition:background var(--d1)}
+.h-cat:hover{background:var(--n1)}
+.h-cat-i{position:absolute;left:12px;top:12px;width:36px;height:36px;display:grid;place-items:center;border-radius:var(--r2);background:var(--n2);color:var(--rosa);z-index:2}
+.h-cat-c{position:absolute;right:-4px;bottom:44px;top:-26px;display:flex;align-items:flex-end;justify-content:flex-end;z-index:1;pointer-events:none}
+.h-cat-c img{height:100%;width:auto;max-width:150px;object-fit:contain;object-position:bottom right}
+.h-cat-tx{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:10px 12px 12px;background:var(--noite);border-radius:0 0 var(--r3) var(--r3);display:flex;flex-direction:column;gap:2px}
+.h-cat-tx b{font-size:22px;font-weight:800;font-stretch:var(--wd-d);line-height:.95}
+.h-cat-tx small{font-size:12px;color:var(--tx-3)}
+.h-cat:hover .h-cat-tx{background:var(--n1)}
+@media (min-width:1024px){.h-cat{width:calc((100% - 36px) / 4);min-width:200px;height:236px}.h-cat-tx b{font-size:26px}}
+
+/* painel do jogo */
+.gs{display:flex;gap:16px;align-items:flex-start}
+.gs-cv{flex:none;width:132px;aspect-ratio:3/4;border-radius:var(--r3);overflow:hidden;background:var(--n2)}
+.gs-cv img{width:100%;height:100%;object-fit:cover}
+.gs-tx{display:flex;flex-direction:column;gap:8px;align-items:flex-start;padding-top:4px}
+.gs-tx .lnk .ic{width:20px;height:20px;color:var(--magenta)}
+.gs-sh .sh-ft .age{justify-content:center;margin-top:4px}
+
+/* painel do torneio */
+.ts-art{aspect-ratio:16/9;border-radius:var(--r3);overflow:hidden}
+.ts-art img{width:100%;height:100%;object-fit:cover}
+.ts-pr{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ts-pr b{display:block;color:var(--rosa)}
+.ts-rk-h{margin-bottom:6px}
+.ts-rk li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;min-height:40px;border-bottom:1px solid var(--ln);font-size:var(--fs-s)}
+.ts-rk li:first-child span:first-child{color:var(--magenta);font-weight:800}
+.ts-rk li span:last-child{color:var(--tx-3)}
+
+/* menu da conta */
+.c-me{display:flex;align-items:center;gap:12px}
+.c-me b{display:block;font-size:var(--fs-h);font-weight:700;font-stretch:var(--wd-t)}
+.c-me small{font-size:13px}
+.c-me-bal{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.c-me-bal b{display:block;font-size:24px;font-weight:800;font-stretch:var(--wd-d)}
+.c-me-b,.c-me-b2{display:flex;gap:8px}
+.c-me-b2{flex-direction:column}
+.c-me-out{display:flex;align-items:flex-end;gap:16px}
+.c-me-out .ped{--pw:120px}
+.c-me-out p{font-size:var(--fs-s);margin-top:8px}
+.c-menu .age{margin-top:4px}
+.c-doc{display:flex;flex-direction:column;gap:10px}
+.c-doc p{font-size:var(--fs-s)}
+
+/* orange: um só por tela */
+html.is-out:not(.luz-casca) .c-criar,html.is-out.sp-has-slip:not(.no-slipfab) .c-criar{background:var(--magenta);color:var(--branco)}
+html.is-out .c-ni--mid .c-mid{background:var(--magenta);color:var(--branco)}
+/* alvos de toque: links secundários dos cartões de esporte ganham área de 44 px sem mudar o desenho */
+.mc-hd,.bc-tm{position:relative}
+.mc-hd::after,.bc-tm::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
+.bc-tm{min-height:28px;display:flex;align-items:center;gap:4px}

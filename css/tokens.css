@@ -1,0 +1,57 @@
+/* Cumbia.bet 2.0 · "A Pista"
+   A noite é a sala, o magenta é o piso que acende, o rosa é a luz baixa, o branco é só texto
+   e o laranja é o golpe de tambor: uma vez por tela, no botão principal.
+   Manual de marca v3 · cor p23–28 · tipo p30–33 · passo p36–40 · fichas p91 · digital p123–125.
+   Proibido: degradê de cor, dourado, rosa sobre magenta, laranja de fundo/texto, sombra fora do que flutua. */
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-display:swap;font-weight:200 800;font-stretch:75% 100%;src:url(../fonts/bricolage.woff2) format('woff2')}
+
+:root{
+  color-scheme:dark;
+  /* paleta (p23) */
+  --magenta:#E5007D; --noite:#1E0A1A; --rosa:#FFD1E8; --branco:#FFFFFF; --laranja:#FF6A13;
+  /* derivados: só misturas da paleta */
+  --n1:color-mix(in srgb,var(--noite) 94%,var(--rosa));   /* cartão        #2C1626 */
+  --n2:color-mix(in srgb,var(--noite) 88%,var(--rosa));   /* elevado/campo #392233 */
+  --n3:color-mix(in srgb,var(--noite) 80%,var(--rosa));   /* hover         #4B3243 */
+  --nm:color-mix(in srgb,var(--noite) 82%,var(--magenta));/* noite tingida de magenta (fundo de faixa escura) */
+  --ln:color-mix(in srgb,var(--rosa) 14%,transparent);
+  --ln2:color-mix(in srgb,var(--rosa) 28%,transparent);
+  --ln-m:color-mix(in srgb,var(--noite) 22%,transparent);  /* linha sobre magenta/rosa */
+  --tx:var(--branco); --tx-2:var(--rosa);
+  --tx-3:color-mix(in srgb,var(--rosa) 70%,var(--noite));  /* 7,2:1 na noite · 5,5:1 no n2 */
+  --mag-h:color-mix(in srgb,var(--magenta) 85%,var(--noite));
+  --lar-h:color-mix(in srgb,var(--laranja) 88%,var(--noite));
+  --rosa-h:color-mix(in srgb,var(--rosa) 86%,var(--noite));
+  --scrim:color-mix(in srgb,var(--noite) 78%,transparent);
+  --sombra:0 12px 32px color-mix(in srgb,var(--noite) 70%,transparent),0 0 0 1px var(--ln2);
+
+  /* tipo (p30): família única */
+  --f:'Bricolage Grotesque','Arial Narrow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --wd-d:75%; --wd-t:85%;
+  --fs-d1:clamp(2.25rem,1.6rem + 2.6vw,4rem);     /* destaque */
+  --fs-d2:clamp(1.875rem,1.5rem + 1.4vw,2.75rem); /* título de tela */
+  --fs-d3:clamp(1.5rem,1.3rem + .8vw,2rem);       /* título de seção */
+  --fs-h:1.125rem; --fs-b:1rem; --fs-s:.875rem; --fs-xs:.75rem; --fs-lab:.6875rem;
+  --lh-d:.92; --lh-b:1.45; --ls-lab:.18em;
+
+  /* espaço base 4 */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --r1:2px; --r2:4px; --r3:8px; --r4:12px;
+  --tap:44px;
+
+  /* movimento */
+  --e-out:cubic-bezier(.2,.8,.2,1); --e-io:cubic-bezier(.65,0,.35,1);
+  --d1:120ms; --d2:200ms; --d3:320ms;
+
+  /* camadas */
+  --z-hdr:40; --z-side:45; --z-nav:50; --z-fab:55; --z-pop:60; --z-scrim:70; --z-sheet:80; --z-modal:90; --z-toast:100; --z-skip:110;
+
+  /* layout (wireframe) */
+  --g:16px; --hdr:60px; --nav-h:64px; --sbw:0px; --aside:340px; --gc-w:141px; --gc-h:188px; --gc-plh:50px; --t10-w:141px;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
+  --gl:max(var(--g),var(--safe-l)); --gr:max(var(--g),var(--safe-r));
+}
+@media (min-width:600px){:root{--g:24px}}
+@media (min-width:1024px){:root{--g:32px;--hdr:72px;--sbw:88px;--t10-w:180px}}
+@media (min-width:1280px){:root{--sbw:248px}}
